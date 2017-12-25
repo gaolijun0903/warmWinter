@@ -42,7 +42,7 @@
 		.lucky-list .lucky-title{ width: 9.2rem; height: 2.53rem; }
 		.lucky-list .lucky-bg{ margin: 0 auto; width: 8.4rem; padding: 0.2rem ; border: 0.04rem solid #f7dab0; }
 		.lucky-list .lucky-bg2{ margin: 0 auto; width: 8.0rem; padding: 0.2rem ; height: 13.7rem; border: 0.08rem solid #f7dab0; }
-		.lucky-list .lucky-bg .lucky-body{ height: 11.55rem;  overflow: hidden;}
+		.lucky-list .lucky-bg .lucky-body{ height: 2.55rem;  overflow: hidden;}
 		.lucky-list .list-item{ height: 1.226667rem; margin-bottom: 0.206667rem; color:#f7dab0;  border-bottom: 1px solid #f7dab0;}
 		.lucky-list .list-item .cell{ display: inline-block; line-height: 1.226667rem; text-align: center; font-size: 0.373333rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 		.lucky-list .list-item .name{ width:2.0rem; }
@@ -167,7 +167,7 @@
 									<div class="cell prize">获得福利</div>
 								</div>
 								<div class="lucky-body" ref="listWrapper">
-									<div id="list-body" class="list-body" v-show="luckyList.length>0">
+									<div id="list-body" ref="listBody" class="list-body" v-show="luckyList.length>0">
 										<div class="list-item" v-for="item in luckyList">
 											<div class="cell name" v-html="item.name"></div>
 											<div class="cell tel" v-html="item.cellphone"></div>
@@ -345,77 +345,77 @@ new Vue({
 	}],
 	luckyList:[ // 获奖司机列表
             {
-                "name": "test",
+                "name": "1test",
                 "cellphone": 18810605345,
                 "award_type":1
             },
             {
-                "name": "测试测试测试测试测试2",
+                "name": "2测试测试测试测试测试2",
                 "cellphone": 13312345678,
                 "award_type":1
             },
             {
-                "name": "测试2",
+                "name": "3测试2",
                 "cellphone": 13312345678,
                 "award_type":2
             },
             {
-                "name": "测试2",
+                "name": "4测试2",
                 "cellphone": 13312345678,
                 "award_type":3
             },
              {
-                "name": "测试测试测试测试测试2",
+                "name": "5测试测试测试测试测试2",
                 "cellphone": 13312345678,
                 "award_type":1
             },
             {
-                "name": "测试2",
+                "name": "6测试2",
                 "cellphone": 13312345678,
                 "award_type":2
             },
             {
-                "name": "测试2",
+                "name": "7测试2",
                 "cellphone": 13312345678,
                 "award_type":3
             },
              {
-                "name": "测试测试测试测试测试2",
+                "name": "8测试测试测试测试测试2",
                 "cellphone": 13312345678,
                 "award_type":1
             },
             {
-                "name": "测试2",
+                "name": "9测试2",
                 "cellphone": 13312345678,
                 "award_type":2
             },
             {
-                "name": "测试2",
+                "name": "10测试2",
                 "cellphone": 13312345678,
                 "award_type":3
             },
              {
-                "name": "测试测试测试测试测试2",
+                "name": "11测试测试测试测试测试2",
                 "cellphone": 13312345678,
                 "award_type":1
             },
             {
-                "name": "测试2",
+                "name": "12测试2",
                 "cellphone": 13312345678,
                 "award_type":2
             },
             {
-                "name": "测试2",
+                "name": "13测试2",
                 "cellphone": 13312345678,
                 "award_type":3
             },
             {
-                "name": "测试2",
+                "name": "14测试2",
                 "cellphone": 13312345678,
                 "award_type":4
             },
             {
-                "name": "测试2",
+                "name": "15测试2",
                 "cellphone": 13312345678,
                 "award_type":5
             }
@@ -448,6 +448,20 @@ new Vue({
 			probeType: 1
 		});
 	},
+	listScroll:function(){
+		var vm = this;
+		var scrollItemIdx = 0, el, len = vm.$refs.listBody.children.length;
+		console.log(len)
+		var scrollTimer = setInterval(function(){
+			scrollItemIdx++;
+			if(scrollItemIdx==len-1){
+				scrollItemIdx = 0;
+			}
+			el = vm.$refs.listBody.children[scrollItemIdx];
+			vm.scroll.scrollToElement(el, 300, false, false, "easing")
+		},2000)
+		
+	},
   	initData:function (){// 获取随叫随到订单数
   		var vm = this;
   		if(vm.isLogin==0){
@@ -455,6 +469,11 @@ new Vue({
   		}
   		
 		this.initScroll();
+		console.log();
+		setTimeout(function(){
+			vm.listScroll()
+		},1000)
+
   		/*JSONP.init({
   			error:function(ex){
   				alert("Failed to load:" + ex.url);
